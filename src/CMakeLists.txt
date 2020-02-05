@@ -9,6 +9,7 @@ include(gtest.cmake)
 #file(GLOB headers "example.h")
 add_executable(simple_gui_template 
     main.cpp 
+	"poly.h"
     ${headers}
     ${sources}
     ) 
@@ -17,6 +18,7 @@ file(GLOB sourcesTests "unit_fixture.cpp")
 file(GLOB headersTests "unit_fixture.h")
 add_executable(tests 
     "unit_tests.cpp"
+	"poly.h"
     ${headers}
     ${sources} 
     ${headersTests} 
