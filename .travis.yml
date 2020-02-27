@@ -1,4 +1,4 @@
-dist: trusty
+ist: trusty
 sudo: false
 language: cpp
 
@@ -11,15 +11,6 @@ addons:
       - g++-6
       - clang-5.0
 
-before_install:
-  - pip install --user cpp-coveralls
-
 script:
-  - mkdir build
-  - cd build
-  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake -DCOVERAGE=1 ../src
-  - cmake --build .
-  - ./tests
-
-after_success:
-- coveralls --root . -E ".*CMakeFiles.*" 
+  - CXX=/usr/bin/g++-6 CC=/usr/bin/gcc-6 cmake . -DBUILD_TESTING=false
+  - cmake --build . 
