@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(simple_gui_template)
+project(poly_gcd)
 include(gtest.cmake)
 
 # set(COVERAGE OFF CACHE BOOL "Coverage")
 
 #file(GLOB sources "example.cpp")
 #file(GLOB headers "example.h")
-add_executable(simple_gui_template 
+add_executable(poly_gcd 
     main.cpp 
 	"poly.h"
     ${headers}
@@ -25,15 +25,18 @@ add_executable(tests
     ${sourcesTests} 
     )
 
-#target_include_directories(simple_gui_template)   
+#target_include_directories(poly_gcd)   
 
 #target_include_directories(tests)   
 
+find_package(Boost COMPONENTS filesystem system unit_test_framework chrono date_time REQUIRED)
+
 find_package (Threads)
-target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT})    
+include_directories(${Boost_INCLUDE_DIRS}) 
+target_link_libraries(tests gtest ${CMAKE_THREAD_LIBS_INIT} ${Boost_LIBRARIES})   
 
 if (MSVC)
-    target_compile_options(tests PRIVATE /std:c++14)
+    target_compile_options(tests PRIVATE /std:c++17)
 
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Ox")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od")
@@ -41,7 +44,7 @@ if (MSVC)
     # VS 2017 removed tr1
     add_definitions(-DGTEST_HAS_TR1_TUPLE=0)
 else()
-    target_compile_options(simple_gui_template PRIVATE -std=c++11 -g -fpermissive)
+    target_compile_options(poly_gcd PRIVATE -std=c++11 -g -fpermissive)
     target_compile_options(tests PRIVATE -std=c++11 -g -fpermissive)
     # if (COVERAGE)
     #     target_compile_options(tests PRIVATE --coverage)
